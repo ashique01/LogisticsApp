@@ -22,7 +22,14 @@ app.get("/", (req, res) => {
 });
 
 
-// Error handling middleware
+
+app.use((req, res, next) => {
+  res.status(404).json({
+    message: "Route not found — please check the URL.",
+  });
+});
+
+
 app.use((err, req, res, next) => {
   console.error("Error:", err.message);
   if (err.message === "Not allowed by CORS") {

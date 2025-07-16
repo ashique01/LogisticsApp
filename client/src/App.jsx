@@ -1,4 +1,3 @@
-import React, { Suspense, lazy } from "react";
 import { Route, Routes } from "react-router-dom";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -7,19 +6,23 @@ import AdminRoute from "./components/AdminRoute";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-const Home = lazy(() => import("./pages/Home"));
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Pricing from "./pages/Pricing";
+import Services from "./pages/Services";
+import Faq from "./pages/Faq";
+import Login from "./pages/auth/Login";
+import Register from "./pages/auth/Register";
+import OrderForm from "./pages/OrderForm";
+import NotFound from "./pages/Notfound";
+
+import { Suspense, lazy } from "react";
+
+// ✅ Lazy load only for heavy pages
 const Track = lazy(() => import("./pages/Track"));
-const About = lazy(() => import("./pages/About"));
-const Contact = lazy(() => import("./pages/Contact"));
-const Pricing = lazy(() => import("./pages/Pricing"));
-const Services = lazy(() => import("./pages/Services"));
-const Faq = lazy(() => import("./pages/Faq"));
-const Login = lazy(() => import("./pages/auth/Login"));
-const Register = lazy(() => import("./pages/auth/Register"));
-const OrderForm = lazy(() => import("./pages/OrderForm"));
 const MyOrders = lazy(() => import("./pages/MyOrders"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
-const NotFound = lazy(() => import("./pages/Notfound"));
 
 function App() {
   return (
@@ -28,9 +31,7 @@ function App() {
       <main className="flex-grow">
         <Suspense fallback={<div className="text-center mt-20">Loading...</div>}>
           <Routes>
-            {/* Public Routes */}
             <Route path="/" element={<Home />} />
-            <Route path="/track" element={<Track />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact-us" element={<Contact />} />
             <Route path="/pricing" element={<Pricing />} />
@@ -38,8 +39,14 @@ function App() {
             <Route path="/faqs" element={<Faq />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
-
-            {/* Protected Routes */}
+            <Route
+              path="/track"
+              element={
+                <Suspense fallback={<div className="text-center mt-20">Loading Track...</div>}>
+                  <Track />
+                </Suspense>
+              }
+            />
             <Route
               path="/order"
               element={
@@ -56,8 +63,6 @@ function App() {
                 </PrivateRoute>
               }
             />
-
-            {/* Admin Route */}
             <Route
               path="/admin/dashboard"
               element={
@@ -66,8 +71,6 @@ function App() {
                 </AdminRoute>
               }
             />
-
-            {/* 404 Page */}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
