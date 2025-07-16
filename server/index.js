@@ -9,7 +9,7 @@ const authRoutes = require('./routes/authRoutes');
 const app = express();
 
 // Middleware
-app.use(cors({ origin: "http://localhost:5173" })); 
+app.use(cors({ origin: "https://logisticsapp2025.netlify.app" })); 
 app.use(express.json()); 
 
 // Routes
