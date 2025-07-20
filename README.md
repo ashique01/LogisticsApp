@@ -22,7 +22,7 @@ Built with React and Tailwind CSS for the frontend and integrated with backend A
 
 ## 📂 Installation
 ```bash
-git clone https://github.com/your-username/logistics-management-app.git
+git clone https://github.com/ashique01/LogisticsApp.git
 cd logistics-management-app
 npm install
 npm start
